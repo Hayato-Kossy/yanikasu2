@@ -7,7 +7,6 @@ class Request
     @client = client
     @method, @path, @headers, @body = parse_request
     @query = parse_query_string
-    puts @client
   end
 
   def parse_request
