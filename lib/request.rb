@@ -33,20 +33,17 @@ class Request
   end
 
   def read_body(headers)
-    if headers['Content-Length']
-      @client.read(headers['Content-Length'].to_i)
-    else
-      ''
+    if headers["Content-Length"]
+      body = @client.read(headers["Content-Length"].to_i)
+      return JSON.parse(body) rescue body # JSONならパース
     end
-  end
+    ''
+  end  
 
   def parse_query_string
     query_string = @path.split('?')[1]
     return {} unless query_string 
 
-    query_string.split('&').map do |pair|
-      key, value = pair.split('=')
-      [key, value]
-    end
+    query_string.split('&').map { |pair| pair.split("=")}.to_h
   end
 end
