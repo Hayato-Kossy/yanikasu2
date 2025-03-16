@@ -28,6 +28,8 @@ module Yanikasu
   def self.load_routers(router) 
     router.add_route("GET", "/hello", ->{"HELLO!"})
     router.add_route("GET", "/json", -> { { message: "Hello, JSON!" } })
+    router.add_route('POST', '/who', ->(req) {"#{req.body}"})
+    router.add_route('PUT', '/todos/:id', {})
   end
 end
 

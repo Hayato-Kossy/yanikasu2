@@ -12,7 +12,8 @@ class Router
     method = request.method
     path = request.path
     action = @routes.dig(method, path)
-    return action.call if action
+    return action.call(request) if action.is_a?(Proc)
+    return action if action
     "#{method} #{path} 404 not found"
   end
 end
